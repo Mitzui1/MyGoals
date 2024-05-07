@@ -7,16 +7,14 @@ import GoalItem from './components/GoalItems';
 export default function App() {
 
 
-const [enterGoalText, setEnterGoalText] = useState('')
-const [goals, setGoals] = useState('')
 
-function handleInputGoal(enterText){
-  console.log(enterText)
-}
+const [goals, setGoals] = useState([])
 
-function handleAddGoal(){
-  console.log(enterGoalText)
-  setGoals(() =>[...goals, {text: enterGoalText, key: Math.random().toString()}])
+
+
+function handleAddGoal(enteredGoalText){
+ //console.log(enterGoalText)
+  setGoals(() =>[...goals, {text: enteredGoalText, key: Math.random().toString()}])
 }
 
 function handleDeleteGoal(){
@@ -24,29 +22,31 @@ function handleDeleteGoal(){
 }
 
 
-  return (
-<View style={styles.container}>
-<GoalInput
-onAddGoal={handleAddGoal}
-/>
-  <View style={styles.goalsContainer}>
-      <FlatList 
-       data={goals}
-       renderItem={ (itemData) => {
-       <GoalItem
-       itemData={itemData}
-       onAddGoal={handleAddGoal}
-       />
-      }}
-      keyExtractor={(item) => {
-        return item.id
-      }}
-
+return (
+  <View style={styles.container}>
+   
+    <GoalInput
+      onAddGoal={handleAddGoal}
+    />
+    <View style={styles.goalsContainer}>
+      <FlatList
+        data={goals}
+        renderItem={ (itemData) => {
+          return(
+        
+            <GoalItem 
+              itemData={itemData}
+              onDeleteItem={handleDeleteGoal} 
+            />
+          )
+        }}
+        keyExtractor={(item) => {
+          return item.id
+        }}
       />
- 
     </View>
-</View>
-  );
+  </View>
+);
 }
 
 const styles = StyleSheet.create({
