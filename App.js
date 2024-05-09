@@ -19,6 +19,8 @@ function handleAddGoal(enteredGoalText){
 
 function handleDeleteGoal(){
   console.log('DELETE')
+  const deleteGoal = goal.filtler((goal) => {return goal.key !== id})
+  setGoals(deleteGoal)
 }
 
 
@@ -37,6 +39,7 @@ return (
             <GoalItem 
               itemData={itemData}
               onDeleteItem={handleDeleteGoal} 
+              id={itemData.item.key}
             />
           )
         }}
